@@ -1,0 +1,14 @@
+name: reaction
+version: '1.0.0'
+main: cc.edgerealm.reaction.Reaction
+api-version: '1.21'
+prefix: Reaction
+authors: [ EdgeRealm ]
+description: Chat reaction plugin for EdgeRealm
+website: https://github.com/edgerealm/reaction
+dependencies:
+  server:
+    XConomy:
+      load: BEFORE
+      required: true
+      join-classpath: true

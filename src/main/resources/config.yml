@@ -1,0 +1,19 @@
+# 定義將隨機詢問玩家的問題清單
+# 每個問題都應包含
+# - question: 要在聊天中顯示給遊戲玩家的問題
+#   answer: 玩家需要在聊天中輸入的問題答案
+#   commands: 當問題被正確回答時要執行的指令清單 (獎勵)
+#     %player% - 正確回答問題的玩家
+questions:
+  - question: "常見的顏色代碼「#rrggbb」是由六個幾進位的數自組合起來的？"
+    answer: "16"
+    commands:
+      - "money give %player% 100"
+
+# 問題的頻率 (ticks)
+# 預設: 6000 (5分鐘)
+frequency: 6000
+
+# 問題接受答案的時間長度 (ticks)
+# 預設: 200 (10秒)
+duration: 200
