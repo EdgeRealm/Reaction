@@ -5,7 +5,7 @@
 #   commands: 當問題被正確回答時要執行的指令清單 (獎勵)
 #     %player% - 正確回答問題的玩家
 questions:
-  - question: "常見的顏色代碼「#rrggbb」是由六個幾進位的數自組合起來的？"
+  - question: "常見的顏色代碼「#rrggbb」是由六個幾進位的數字組合起來的？"
     answer: "16"
     commands:
       - "money give %player% 100"
