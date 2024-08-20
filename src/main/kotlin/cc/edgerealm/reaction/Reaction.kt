@@ -1,7 +1,7 @@
 package cc.edgerealm.reaction
 
 import cc.edgerealm.reaction.model.config.Question
-import cc.edgerealm.reaction.task.QuestionTask
+import cc.edgerealm.reaction.task.ReactionTask
 import com.mojang.brigadier.Command
 import io.papermc.paper.command.brigadier.Commands
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
@@ -15,7 +15,7 @@ class Reaction : JavaPlugin() {
     private lateinit var questions: List<Question>
     private var duration: Long = 0
     private var frequency: Long = 0
-    private var questionTask: QuestionTask? = null
+    private var questionTask: ReactionTask? = null
 
     val prefix = Component.text("[Reaction] ", NamedTextColor.GOLD)
 
@@ -136,7 +136,7 @@ class Reaction : JavaPlugin() {
     private fun makeSchedule() {
         questionTask?.stopTask()
 
-        questionTask = QuestionTask(this, duration) { getRandomQuestion() }
+        questionTask = ReactionTask(this, duration) { getRandomQuestion() }
         questionTask?.startTask(frequency)
     }
 

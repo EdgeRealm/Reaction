@@ -13,7 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.scheduler.BukkitRunnable
 
-class QuestionTask(
+class ReactionTask(
     private val plugin: Reaction,
     private val duration: Long,
     private val questionProvider: () -> Question?
@@ -59,7 +59,7 @@ class QuestionTask(
         val player = event.player
         val message = LegacyComponentSerializer.legacySection().serialize(event.originalMessage()).trim()
 
-        if (currentQuestion != null && message.equals(currentQuestion!!.answer, ignoreCase = true)) {
+        if (currentQuestion != null && message == currentQuestion!!.answer) {
             event.isCancelled = true
 
             val elapsedTime = System.currentTimeMillis() - startTime
