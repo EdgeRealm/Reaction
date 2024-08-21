@@ -48,6 +48,8 @@ class ReactionCommand(private val plugin: Reaction) {
                 sender.sendMessage(plugin.message.reloadError)
             }
 
+            plugin.makeSchedule()
+
             plugin.componentLogger.info("已讀取設定檔")
 
             sender.sendMessage(plugin.message.reloadComplete)

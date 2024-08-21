@@ -24,6 +24,7 @@ class Reaction : JavaPlugin() {
     override fun onEnable() {
         cfg.load()
         message.load()
+        makeSchedule()
 
         lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS) { event ->
             val commands: Commands = event.registrar()
@@ -33,15 +34,17 @@ class Reaction : JavaPlugin() {
                     .build()
             )
         }
-
-        makeSchedule()
     }
 
-    private fun makeSchedule() {
+    fun makeSchedule() {
         questionTask?.stopTask()
 
-        questionTask = ReactionTask(this, cfg.duration) { getRandomQuestion() }
-        questionTask?.startTask(cfg.frequency)
+        if (cfg.duration > 0) {
+            questionTask = ReactionTask(this, cfg.duration, ::getRandomQuestion)
+            questionTask?.startTask(cfg.frequency)
+        } else {
+            questionTask = null
+        }
     }
 
     override fun onDisable() {
