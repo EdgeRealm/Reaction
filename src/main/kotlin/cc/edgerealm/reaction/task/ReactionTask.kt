@@ -84,7 +84,7 @@ class ReactionTask(
     }
 
     fun startTask(interval: Long) {
-        this.runTaskTimer(plugin, 0, interval)
+        this.runTaskTimer(plugin, interval, interval)
     }
 
     fun stopTask() {
