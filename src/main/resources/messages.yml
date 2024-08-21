@@ -1,0 +1,7 @@
+prefix: "&6[Reaction] "
+insufficient_permission: "&c你沒有權限執行這個指令"
+reload_error: "&c重新讀取設定時發生錯誤（請查看主控臺）"
+reload_complete: "&a已重新讀取設定"
+reaction_correct: "&a%player% 在 %seconds% 秒內答對了"
+reaction_timeout: "&c沒有人在時間內答對 :<"
+reaction_question: "&e將滑鼠移到這裡回答問題"

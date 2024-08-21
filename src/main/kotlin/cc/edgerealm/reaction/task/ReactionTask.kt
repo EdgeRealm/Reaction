@@ -5,7 +5,6 @@ import cc.edgerealm.reaction.model.config.Question
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.HoverEvent
-import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -14,9 +13,7 @@ import org.bukkit.event.Listener
 import org.bukkit.scheduler.BukkitRunnable
 
 class ReactionTask(
-    private val plugin: Reaction,
-    private val duration: Long,
-    private val questionProvider: () -> Question?
+    private val plugin: Reaction, private val duration: Long, private val questionProvider: () -> Question?
 ) : BukkitRunnable(), Listener {
     private var currentQuestion: Question? = null
     private var timeoutTask: BukkitRunnable? = null
@@ -28,25 +25,15 @@ class ReactionTask(
             currentQuestion = question
 
             plugin.server.broadcast(
-                plugin.prefix.append(
-                    Component
-                        .text("將滑鼠移到這裡回答問題", NamedTextColor.AQUA)
-                        .hoverEvent(HoverEvent.showText(Component.text(question.question)))
-                )
+                plugin.message.reactionQuestion
+                    .hoverEvent(HoverEvent.showText(Component.text(question.question)))
             )
             plugin.server.pluginManager.registerEvents(this, plugin)
             startTime = System.currentTimeMillis()
 
             timeoutTask = object : BukkitRunnable() {
                 override fun run() {
-                    plugin.server.broadcast(
-                        plugin.prefix.append(
-                            Component.text(
-                                "沒有人在時間內答對 :<",
-                                NamedTextColor.RED
-                            )
-                        )
-                    )
+                    plugin.server.broadcast(plugin.message.reactionTimeout)
                     cleanup()
                 }
             }
@@ -55,7 +42,7 @@ class ReactionTask(
     }
 
     @EventHandler
-    fun onPlayerChat(event: AsyncChatEvent) {
+    fun onAsyncChat(event: AsyncChatEvent) {
         val player = event.player
         val message = LegacyComponentSerializer.legacySection().serialize(event.originalMessage()).trim()
 
@@ -66,14 +53,10 @@ class ReactionTask(
             val elapsedSeconds = elapsedTime / 1000.0
 
             plugin.server.broadcast(
-                plugin.prefix.append(
-                    Component.text(
-                        "${player.name} 在 $elapsedSeconds 秒內答對了",
-                        NamedTextColor.GREEN
-                    )
+                plugin.message.prefix.append(
+                    plugin.message.reactionCorrect(player.name, "$elapsedSeconds")
                 )
             )
-
             executeRewardCommands(player, currentQuestion!!.commands)
 
             cleanup()
