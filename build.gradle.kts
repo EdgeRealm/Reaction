@@ -5,13 +5,11 @@ plugins {
 }
 
 group = "cc.edgerealm"
-version = "1.1.0"
+version = "1.1.1"
 
 repositories {
     mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/") {
-        name = "papermc-repo"
-    }
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://oss.sonatype.org/content/groups/public/") {
         name = "sonatype"
     }
